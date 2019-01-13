@@ -23,6 +23,20 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'cityService' => [
+            'class' => app\components\CityService::class,
+            'on before_load' => function (\app\components\events\BeforeLoadEvent $event) {
+                $event->model->created_at = time();
+                $event->model->updated_at = time();
+            },
+        ],
+        'mineService' => [
+            'class' => app\components\MineService::class,
+            'on before_load' => function (\app\components\events\BeforeLoadEvent $event) {
+                $event->model->created_at = time();
+                $event->model->updated_at = time();
+            },
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
