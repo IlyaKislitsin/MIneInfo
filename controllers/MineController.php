@@ -9,10 +9,8 @@
 namespace app\controllers;
 
 
-
-use app\models\City;
+use yii;
 use app\models\Mine;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 class MineController extends Controller
@@ -41,10 +39,9 @@ class MineController extends Controller
     {
         $model = new Mine();
 
-        $cities = new City();
-        $cityNames = $cities->getCityNames();
-        $model->created_at = time();
-        $model->updated_at = time();
+        $cityNames = Yii::$app->cityService->getCityNames();
+
+        \Yii::$app->mineService->createMine($model);
 
 
         if ($model->load(\Yii::$app->request->post()) && $model->validate()) {

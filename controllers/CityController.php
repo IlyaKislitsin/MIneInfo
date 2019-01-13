@@ -11,7 +11,6 @@ namespace app\controllers;
 
 use app\models\City;
 use app\models\Mine;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 class CityController extends Controller
@@ -60,9 +59,7 @@ class CityController extends Controller
     {
         $model = new City();
 
-        $model->created_at = time();
-        $model->updated_at = time();
-
+        \Yii::$app->cityService->createCity($model);
 
         if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             if($model->insert(['name', 'info', 'created_at', 'updated_at'],
