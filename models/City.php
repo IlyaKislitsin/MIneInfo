@@ -38,13 +38,11 @@ class City extends BaseModel
         ];
     }
 
-
     /**
      * @return array
      */
-    public function getCityNames()
+    public function selectIDsAndNames()
     {
-        $cities = $this->select(['id', 'name']);
-        return array_column($cities, 'name', 'id');
+        return $this->select(['id', 'name']);
     }
 }
