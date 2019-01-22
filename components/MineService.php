@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 13.01.2019
- * Time: 18:52
- */
-
 namespace app\components;
 
-
-use app\components\events\BeforeLoadEvent;
-use app\models\Mine;
 use yii\base\Component;
+use app\models\Mine;
+use app\components\events\BeforeLoadEvent;
 
 class MineService extends Component
 {
@@ -20,7 +12,7 @@ class MineService extends Component
     /**
      * @param Mine $mine
      */
-    public function createMine (Mine $mine)
+    public function createMine(Mine $mine): void
     {
         $event = new BeforeLoadEvent();
         $event->model = $mine;

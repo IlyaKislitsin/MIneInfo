@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 28.12.2018
- * Time: 16:32
- */
-
 namespace app\controllers;
 
-
 use yii;
-use app\models\Mine;
 use yii\web\Controller;
+use app\models\Mine;
 
 class MineController extends Controller
 {
@@ -21,15 +13,12 @@ class MineController extends Controller
      */
     public function actionIndex()
     {
-        $mineModel = new Mine();
-
-        $mines = $mineModel->select();
+        $mines = (new Mine)->select();
 
         return $this->render('index', [
             'mines' => $mines
         ]);
     }
-
 
     /**
      * @return string|\yii\web\Response
@@ -38,16 +27,14 @@ class MineController extends Controller
     public function actionCreate()
     {
         $model = new Mine();
-
         $cityNames = Yii::$app->cityService->getCityNames();
+        Yii::$app->mineService->createMine($model);
 
-        \Yii::$app->mineService->createMine($model);
 
-
-        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
-            if($model->insert(['name', 'info', 'city_id', 'created_at', 'updated_at'],
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->insert(['name', 'info', 'city_id', 'created_at', 'updated_at'],
                 [$model->name, $model->info, $model->city_id, $model->created_at, $model->updated_at])) {
-                \Yii::$app->session->setFlash('success', 'Шахта успешно добавлена.');
+                Yii::$app->session->setFlash('success', 'Шахта успешно добавлена.');
                 return $this->redirect(['city/view', 'id' => $model->city_id]);
             }
         }

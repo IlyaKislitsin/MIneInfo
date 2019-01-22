@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 28.12.2018
- * Time: 15:54
- */
-
 namespace app\models;
-
 
 use app\models\base\BaseModel;
 
@@ -47,5 +39,4 @@ class Mine extends BaseModel
     {
         return $this->select(['*'], ['where' => 'city_id = ' . $city_id]);
     }
-
 }

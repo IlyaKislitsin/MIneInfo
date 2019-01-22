@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,7 +17,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'city_id')->dropDownList($cityNames)?>
-
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 28.12.2018
- * Time: 17:21
- */
-
 /* @var $model array*/
 /* @var $mines array*/
 ?>
+
 <div class="row">
     <h1>Просмотр информации о городе</h1>
 </div>
@@ -33,6 +27,7 @@
         <?php endforeach; ?>
     </ul>
 </div>
+
 <div class="row">
     <?= yii\helpers\Html::a('Добавить шахту', ['mine/create'], ['class' => 'btn btn-success']) ?>
 </div>

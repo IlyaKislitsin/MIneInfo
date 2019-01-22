@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 11.01.2019
- * Time: 17:26
- */
-
 namespace app\components;
 
-
-use app\components\events\BeforeLoadEvent;
-use app\models\City;
 use yii\base\Component;
+use app\models\City;
+use app\components\events\BeforeLoadEvent;
 
 class CityService extends Component
 {
@@ -20,7 +12,7 @@ class CityService extends Component
     /**
      * @param City $city
      */
-    public function createCity (City $city)
+    public function createCity(City $city): void
     {
         $event = new BeforeLoadEvent();
         $event->model = $city;
@@ -31,10 +23,9 @@ class CityService extends Component
      * @return array
      * @throws \yii\db\Exception
      */
-    public function getCityNames()
+    public function getCityNames(): array
     {
-        $model = new City();
-        $cities = $model->selectIDsAndNames();
+        $cities = (new City)->selectIDsAndNames();
         return array_column($cities, 'name', 'id');
     }
 }

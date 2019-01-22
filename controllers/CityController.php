@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 22.12.2018
- * Time: 0:27
- */
-
 namespace app\controllers;
 
-
-use app\models\City;
-use app\models\Mine;
+use yii;
 use yii\web\Controller;
+use app\models\{City, Mine};
 
 class CityController extends Controller
 {
@@ -21,12 +13,10 @@ class CityController extends Controller
      */
     public function actionIndex()
     {
-        $cityModel = new City();
-
-        $cities = $cityModel->select();
+        $cities = (new City)->select();
 
         return $this->render('index', [
-            'cities' => $cities
+            'cities' => $cities,
         ]);
     }
 
@@ -37,16 +27,12 @@ class CityController extends Controller
      */
     public function actionView($id)
     {
-        $city = new City();
-        $model = $city->select(['*'], ['where' => 'id = '. $id]);
-
-        $mine = new Mine();
-        $mines = $mine->byCity($id);
-
+        $model = (new City)->select(['*'], ['where' => 'id = '. $id]);
+        $mines = (new Mine)->byCity($id);
 
         return $this->render('view', [
             'model' => $model,
-            'mines' => $mines
+            'mines' => $mines,
         ]);
     }
 
@@ -58,19 +44,18 @@ class CityController extends Controller
     public function actionCreate()
     {
         $model = new City();
+        Yii::$app->cityService->createCity($model);
 
-        \Yii::$app->cityService->createCity($model);
-
-        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
-            if($model->insert(['name', 'info', 'created_at', 'updated_at'],
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->insert(['name', 'info', 'created_at', 'updated_at'],
                 [$model->name, $model->info, $model->created_at, $model->updated_at])) {
-                \Yii::$app->session->setFlash('success', 'Город успешно добавлен.');
+                Yii::$app->session->setFlash('success', 'Город успешно добавлен.');
                 return $this->redirect(['city/index']);
             }
         }
 
         return $this->render('create', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 }

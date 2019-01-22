@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Илья
- * Date: 21.12.2018
- * Time: 22:50
- */
-
 namespace app\models;
-
 
 use app\models\base\BaseModel;
 
@@ -29,7 +21,7 @@ class City extends BaseModel
     public $created_at;
     public $updated_at;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['name', 'created_at', 'updated_at'], 'required'],
@@ -38,10 +30,7 @@ class City extends BaseModel
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function selectIDsAndNames()
+    public function selectIDsAndNames(): array
     {
         return $this->select(['id', 'name']);
     }
